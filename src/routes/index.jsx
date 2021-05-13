@@ -6,7 +6,7 @@ import {useUser} from '../Providers/User';
 
 
 const Routes = () => {
-  const {user} = useUser();
+  const {user} = useUser() || "";
   return(
     <Switch>
       <Route path="/home">
@@ -15,7 +15,7 @@ const Routes = () => {
       <Route path="/register">
         <Register />
       </Route>
-      <Route exact path="/login">
+      <Route path="/login">
         <Login />
       </Route>
     </Switch>

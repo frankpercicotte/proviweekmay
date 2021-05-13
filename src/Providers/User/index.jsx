@@ -2,20 +2,11 @@ import { createContext, useContext, useState } from "react";
 
 const UserContext = createContext();
 
-export const UserProvieder = ({children}) => {
+export const UserProvider = ({children}) => {
   
-  const[isNewUser, setIsNewUser] = useState(false)
-  
-  const [user,setUser] = useState({
-    id:"",
-    name:"",
-    email:"",
-    password:"",
-    email_other:""
-  });
-  
-  const [users, SetUsers] = useState([{
-    id:"",
+  const[isNewUser, setIsNewUser] = useState(false)  
+  const [user,setUser] = useState();  
+  const [users, setUsers] = useState([{   
     name:"", 
     email:"",
     password:"",
@@ -24,14 +15,19 @@ export const UserProvieder = ({children}) => {
 
   const createUser = (dataUser) =>{
       // verificar se ja' existe email
-      // checkUser = users.filter((elm) dataUser.email === user.email)
-      // se existe retorna false
-      // setIsNewUser(false)      
-      // se não cria novo usuário
-      // setIsNewUser(true)
-      // setUsers(...users, dataUser)
-
-      return true
+      const checkUser = users.filter((elm) => dataUser.email === user.email)
+      console.log('Provider_createUser',checkUser)
+      
+      if(checkUser){
+        // novo user
+        setIsNewUser(true)
+        setUsers({...users}, [dataUser])  
+        return true
+      } else {
+        // já existente
+        setIsNewUser(false)
+        return false
+      }   
   };
 
   const loginUser = (dataUser) => {
@@ -60,4 +56,4 @@ export const UserProvieder = ({children}) => {
   );
 };
 
-export const UseUser = () => useContext(UserContext);
+export const useUser = () => useContext(UserContext);

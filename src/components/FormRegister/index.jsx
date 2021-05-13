@@ -1,17 +1,18 @@
 import {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useForm} from 'react-hook-form';
-
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-
 import {useUser} from '../../Providers/User';
-
 import {Button, TextField} from "@material-ui/core";
+import './formRegister.css'
+
+
 
 const FormRegister = () => {
 
-  const {createUser, newUser} = useUser();
+  
+  const {createUser, isNewUser} = useUser() || "";
   const history = useHistory();
   
   const [error, setError] = useState(false);
@@ -36,9 +37,11 @@ const FormRegister = () => {
   });
 
   const handleForm = (data) =>{
-    console.log('handForm Register:',data)
+    
+    const response = createUser(data);
+    console.log(response)
     // pedido de criação de novo usuário
-    if(createUser(data)){
+    if(response){
       console.log('Usuário criado com sucesso!')
       reset();
       history.push('/');
@@ -50,7 +53,7 @@ const FormRegister = () => {
 
   return (
     <div className='register-container'> 
-      <h2>Criar novo usuário</h2>
+      <h2>Novo usuário</h2>
       <form onSubmit={handleSubmit(handleForm)}>
         <TextField
           margin='normal'
@@ -69,31 +72,44 @@ const FormRegister = () => {
           name='email'
           size='small'
           color='primary'
-          {...register('email')} />
+          {...register('email')}          
+          />
         <p>{errors.email?.message}</p>
+        {errorMsg && <p>{errorMsg}</p>}
 
         <TextField
           margin='normal'
           variant='outlined'
           label='senha - 6 digitos'
           name='password'
+          type='password'
           size='small'
           color='primary'
           {...register('password')} />
         <p>{errors.password?.message}</p>
-
+        
         <TextField
           margin='normal'
           variant='outlined'
           label='confirme senha'
           name='confirmPassword'
+          type='password'
           size='small'
           color='primary'
           {...register('confirmPassword')} />
-        <p>{errors.confirmPassword?.message}</p>         
+        <p>{errors.confirmPassword?.message}</p> 
+        
+        <Button 
+          className='button'
+          type="submit" 
+          variant="contained" 
+          color="secondary">
+              Cadastrar Usuário
+        </Button>     
+      
       </form>    
     </div>
-  )
+  );
 
 
 }

@@ -38,7 +38,7 @@ const FormLogin = () =>{
       reset();
       history.push('/home');
     }else{      
-      setMsgError('Email não cadastrado');
+      setMsgError('Email ou senha não confere.');
     }
   };
 
@@ -58,8 +58,7 @@ const FormLogin = () =>{
             {...register('email')}          
             />
           <p>{errors.email?.message}</p>
-          {errorMsg && <p>{errorMsg}</p>}
-
+          
           <TextField
             margin='normal'
             variant='outlined'
@@ -78,10 +77,11 @@ const FormLogin = () =>{
             color="secondary">
                 Cadastrar Usuário
           </Button>     
+          {errorMsg && <p>{errorMsg}</p>}
 
         </form>
       </div>
-      <div className='register-to-login'>
+      <div className='register-to-singup'>
         <h6>Cadastrar?</h6>
         <Button onClick={() => {history.push('/register')}}>Registre</Button>
       </div>

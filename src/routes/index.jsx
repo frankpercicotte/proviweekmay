@@ -1,4 +1,4 @@
-import {Switch, Route, Redirect} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Home from '../pages/Home';
@@ -10,12 +10,12 @@ const Routes = () => {
   return(
     <Switch>
       <Route path="/home">
-        {user ? <Home /> : <Redirect to='/login'/>}
+        {user && <Home />}
       </Route>
       <Route path="/register">
         <Register />
       </Route>
-      <Route exact path="/login">
+      <Route exact path="/">
         <Login />
       </Route>
     </Switch>

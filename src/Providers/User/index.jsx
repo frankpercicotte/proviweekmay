@@ -13,22 +13,18 @@ export const UserProvider = ({children}) => {
   ];
 
   
-  const [user,setUser] = useState();  
+  const [user,setUser] = useState('');  
   const [users, setUsers] = useState([dbUsers])
 
   useEffect(()=> {
-      console.log('users_upgrade',users)
+      console.log('user',user)
   },[users])
 
   const createUser = (dataUser) =>{
-      
-    console.log('createUser_in',dataUser)
       // verificar se ja' existe email
-      const checkUser = dbUsers.filter(elm => {        
-        console.log(elm)
-        return dataUser.email === elm.email
-      });
-      
+      const checkUser = dbUsers.filter(elm =>                 
+        dataUser.email === elm.email
+      );      
 
       if(!checkUser.length){        
         dbUsers.push(dataUser)
@@ -41,9 +37,10 @@ export const UserProvider = ({children}) => {
   const loginUser = (dataUser) => {
     // Verifica se email/ password existe
     const check = dbUsers.find((elm) => 
-       elm.email === dataUser.email && elm.password === dataUser.password
+       elm.email === dataUser.email 
+       && elm.password === dataUser.password
     );
-    
+    console.log(check)
     if(check){
       setUser(check);
       return true;

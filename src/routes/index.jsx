@@ -2,15 +2,13 @@ import {Switch, Route} from 'react-router-dom';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Home from '../pages/Home';
-import {useUser} from '../Providers/User';
 
 
-const Routes = () => {
-  const {user} = useUser();
+const Routes = () => {  
   return(
     <Switch>
       <Route path="/home">
-        {user && <Home />}
+        <Home />
       </Route>
       <Route path="/register">
         <Register />

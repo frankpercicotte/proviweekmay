@@ -43,7 +43,10 @@
   margin-bottom: 0.2em;
 }
 
-.register-to-login {
+.register-container button {
+  margin: 1rem auto;
+}
+.register-to-singup {
   display: flex;
   font-size: smaller;
   flex-direction: row;

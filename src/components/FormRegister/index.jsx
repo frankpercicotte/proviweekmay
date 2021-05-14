@@ -12,10 +12,10 @@ import './formRegister.css'
 const FormRegister = () => {
 
   
-  const {createUser, isNewUser} = useUser() || "";
+  const {createUser} = useUser();
   const history = useHistory();
   
-  const [error, setError] = useState(false);
+  
   const [errorMsg, setMsgError] = useState('')
 
   // validate from with yup 
@@ -45,8 +45,7 @@ const FormRegister = () => {
       console.log('Usuário criado com sucesso!')
       reset();
       history.push('/');
-    }else{
-      setError(true);
+    }else{      
       setMsgError('Email já cadastrado');
     }
   };
@@ -54,60 +53,66 @@ const FormRegister = () => {
   return (
     <div className='register-container'> 
       <h2>Novo usuário</h2>
-      <form onSubmit={handleSubmit(handleForm)}>
-        <TextField
-          margin='normal'
-          variant='outlined'
-          label='Nome'
-          name='name'
-          size='small'
-          color='primary'
-          {...register('name')} />
-        <p>{errors.name?.message}</p>
-        
-        <TextField
-          margin='normal'
-          variant='outlined'
-          label='Email'
-          name='email'
-          size='small'
-          color='primary'
-          {...register('email')}          
-          />
-        <p>{errors.email?.message}</p>
-        {errorMsg && <p>{errorMsg}</p>}
+      <div>
+        <form onSubmit={handleSubmit(handleForm)}>
+          <TextField
+            margin='normal'
+            variant='outlined'
+            label='Nome'
+            name='name'
+            size='small'
+            color='primary'
+            {...register('name')} />
+          <p>{errors.name?.message}</p>
 
-        <TextField
-          margin='normal'
-          variant='outlined'
-          label='senha - 6 digitos'
-          name='password'
-          type='password'
-          size='small'
-          color='primary'
-          {...register('password')} />
-        <p>{errors.password?.message}</p>
-        
-        <TextField
-          margin='normal'
-          variant='outlined'
-          label='confirme senha'
-          name='confirmPassword'
-          type='password'
-          size='small'
-          color='primary'
-          {...register('confirmPassword')} />
-        <p>{errors.confirmPassword?.message}</p> 
-        
-        <Button 
-          className='button'
-          type="submit" 
-          variant="contained" 
-          color="secondary">
-              Cadastrar Usuário
-        </Button>     
+          <TextField
+            margin='normal'
+            variant='outlined'
+            label='Email'
+            name='email'
+            size='small'
+            color='primary'
+            {...register('email')}          
+            />
+          <p>{errors.email?.message}</p>
+          {errorMsg && <p>{errorMsg}</p>}
+
+          <TextField
+            margin='normal'
+            variant='outlined'
+            label='senha - 6 digitos'
+            name='password'
+            type='password'
+            size='small'
+            color='primary'
+            {...register('password')} />
+          <p>{errors.password?.message}</p>
+
+          <TextField
+            margin='normal'
+            variant='outlined'
+            label='confirme senha'
+            name='confirmPassword'
+            type='password'
+            size='small'
+            color='primary'
+            {...register('confirmPassword')} />
+          <p>{errors.confirmPassword?.message}</p> 
+
+          <Button 
+            className='button'
+            type="submit" 
+            variant="contained" 
+            color="secondary">
+                Cadastrar Usuário
+          </Button>      
+        </form>
+      </div>
+      <div className='register-to-login'>
+        <h6>Já cadastrado?</h6>
+        <Button onClick={() => {history.push('/')}}>login</Button>
+      </div>
       
-      </form>    
     </div>
   );
 

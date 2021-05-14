@@ -1,4 +1,3 @@
-import { Checkbox } from "@material-ui/core";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const UserContext = createContext();
@@ -25,15 +24,14 @@ export const UserProvider = ({children}) => {
       
     console.log('createUser_in',dataUser)
       // verificar se ja' existe email
-      const checkUser = users.filter(elm => {        
+      const checkUser = dbUsers.filter(elm => {        
         console.log(elm)
         return dataUser.email === elm.email
       });
+      
 
-      console.log('createUser_filter',checkUser)
-
-      if(!checkUser.length){
-        // setUsers(...users, dataUser)        
+      if(!checkUser.length){        
+        dbUsers.push(dataUser)
         return true
       } else {
         return false
@@ -42,12 +40,15 @@ export const UserProvider = ({children}) => {
 
   const loginUser = (dataUser) => {
     // Verifica se email/ password existe
-    // user.data = users.find((elm) => {
-      // elm.email === dataUser.email && elm.password === dataUser.password
-    // });
+    const check = dbUsers.find((elm) => 
+       elm.email === dataUser.email && elm.password === dataUser.password
+    );
     
-    // user.data && setUser(user.data);
-    // obs. caso não exista user continua sem dados.
+    if(check){
+      setUser(check);
+      return true;
+    }    
+    return false;
   };
 
   const updateUser = (dataUser) => {
